@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dateTimeRangePickerDoneText">完成</string>
+  <string name="dateTimeRangePickerStartText">开始</string>
+  <string name="dateTimeRangePickerEndText">结束</string>
+</resources>
