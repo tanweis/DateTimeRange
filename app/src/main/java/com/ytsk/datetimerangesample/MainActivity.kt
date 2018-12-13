@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             val intent = DateTimeRangePickerActivity
                 .newIntent(
                     this, TimeZone.getTimeZone("GMT+08:00"), null, null, null,
-                    DateTime.now().getMillis(), DateTime.now().plusYears(1).getMillis(), false
+                    DateTime.now().getMillis(), DateTime.now().plusYears(1).getMillis(),null,null, false
                 )
             startActivityForResult(intent, 1)
         }

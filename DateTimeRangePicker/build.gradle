@@ -27,7 +27,7 @@ apply plugin: 'maven-publish'
 
 group 'com.tan'
 ext.artifactIdcus='dateRangePicker'
-version '1.12'
+version '1.13'
 //
 //uploadArchives{
 //    repositories {

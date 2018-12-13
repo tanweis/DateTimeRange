@@ -22,6 +22,8 @@ class DateTimeRangePickerActivity : AppCompatActivity() {
                 range: Int? = -1,
                 minTimeInMillis: Long? = null,
                 maxTimeInMillis: Long? = null,
+                minOutBoundMsg:String?=null,
+                maxOutBoundMsg:String?=null,
                 stackFromBottom: Boolean? = true
         ): Intent {
             val intent = Intent(context!!, DateTimeRangePickerActivity::class.java)
@@ -30,6 +32,8 @@ class DateTimeRangePickerActivity : AppCompatActivity() {
             intent.putExtra(DateTimeRangePickerViewModel.KEY_TIME_ZONE, timeZone!!.id)
             minTimeInMillis?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_MIN_DATE_IN_MILLIS, it) }
             maxTimeInMillis?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_MAX_DATE_IN_MILLIS, it) }
+            minOutBoundMsg?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_MIN_DATE_MSG,it) }
+            maxOutBoundMsg?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_MAX_DATE_MSG,it) }
             range?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_TIME_RANGE, it) }
             stackFromBottom?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_VIEW_STACK_FROM_BOTTOM, it) }
             return intent
@@ -67,11 +71,11 @@ class DateTimeRangePickerActivity : AppCompatActivity() {
                     val start = viewModel.startDateTime.value?.millis ?: 0
                     val end = viewModel.endDateTime.value?.millis ?: 0
                     if (start < min) {
-                        Toast.makeText(this, "开始时间小于最小时间", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, viewModel.minOutBoundMsg, Toast.LENGTH_SHORT).show()
                         return@setOnMenuItemClickListener true
                     }
                     if (end > max) {
-                        Toast.makeText(this, "结束时间大于最大时间", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, viewModel.maxOutBoundMsg, Toast.LENGTH_SHORT).show()
                         return@setOnMenuItemClickListener true
                     }
                     if (end <= start) {
