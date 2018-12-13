@@ -24,7 +24,8 @@ constructor(klass: Class<*>) : RobolectricTestRunner(klass) {
     // that it didn't find the AM file, resulting in a bunch of failures.
     // So this patch was born to fix that issue. Note that it might be
     // incompatible w/ future releases of Robolectric.
-    val newAndroidManifestFilePath = appManifest.androidManifestFile.path.replace("full", "aapt")
+//    val newAndroidManifestFilePath = appManifest.androidManifestFile.path
+    val newAndroidManifestFilePath = "build/intermediates/aapt_friendly_merged_manifests/release/processReleaseManifest/aapt/AndroidManifest.xml";
 
     return object : AndroidManifest(
         FileFsFile.from(newAndroidManifestFilePath),
