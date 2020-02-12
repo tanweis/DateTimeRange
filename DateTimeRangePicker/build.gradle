@@ -25,9 +25,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
+apply plugin: 'com.novoda.bintray-release'
+
 group 'com.tan'
 ext.artifactIdcus='dateRangePicker'
-version '1.13'
+version '1.15'
 //
 //uploadArchives{
 //    repositories {
@@ -37,6 +39,17 @@ version '1.13'
 //        }
 //    }
 //}
+
+publish{
+  userOrg='tanweis'
+  repoName='tlib'
+  groupId=group
+  artifactId=artifactIdcus
+  publishVersion=version
+  desc ='date range lib'
+//  website=''
+}
+
 
 //maven-publish
 task sourceJar(type:Jar){
@@ -91,9 +104,9 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
-//  lintOptions {
-//    abortOnError false
-//  }
+  lintOptions {
+    abortOnError false
+  }
 
 
 //  buildTypes {

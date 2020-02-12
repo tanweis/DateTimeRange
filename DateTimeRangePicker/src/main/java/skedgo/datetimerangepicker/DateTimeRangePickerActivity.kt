@@ -24,7 +24,8 @@ class DateTimeRangePickerActivity : AppCompatActivity() {
                 maxTimeInMillis: Long? = null,
                 minOutBoundMsg:String?=null,
                 maxOutBoundMsg:String?=null,
-                stackFromBottom: Boolean? = true
+                stackFromBottom: Boolean? = true,
+                dateTimeModel:Boolean=true //true:可选日期和时间 false:仅仅选日期
         ): Intent {
             val intent = Intent(context!!, DateTimeRangePickerActivity::class.java)
             startTimeInMillis?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_START_TIME_IN_MILLIS, it) }
@@ -36,6 +37,7 @@ class DateTimeRangePickerActivity : AppCompatActivity() {
             maxOutBoundMsg?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_MAX_DATE_MSG,it) }
             range?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_TIME_RANGE, it) }
             stackFromBottom?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_VIEW_STACK_FROM_BOTTOM, it) }
+            dateTimeModel.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_DATE_TIME_MODEL, it) }
             return intent
         }
     }
@@ -114,6 +116,9 @@ class DateTimeRangePickerActivity : AppCompatActivity() {
                 viewModel.updateSelectedDates(calendarPickerView.selectedDates)
             }
         })
+
+        binding.pickStartTimeView.isEnabled=viewModel.dateTimeModel
+        binding.pickEndTimeView.isEnabled=viewModel.dateTimeModel
 
         binding.pickStartTimeView.setOnClickListener { _ ->
             showTimePicker(viewModel.startDateTime.value, viewModel.onStartTimeSelected)

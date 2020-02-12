@@ -43,6 +43,7 @@ class DateTimeRangePickerViewModel(private val timeFormatter: TimeFormatter) {
     var maxOutBoundMsg:String="结束时间大于最大时间"
 
     var stackFromBottom = true
+    var dateTimeModel = true
 
     init {
 //    onStartTimeSelected = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
@@ -126,7 +127,7 @@ class DateTimeRangePickerViewModel(private val timeFormatter: TimeFormatter) {
         val endDateTimeValue = when {
             selectedDates.size == 1 -> startDateTimeValue()
             else -> DateTime(selectedDates.last().time, dateTimeZone)
-        }
+        }.plusDays(1).minusSeconds(1)
         endDateTime.onNext(
             when {
                 endDateTime.hasValue() -> {
@@ -166,6 +167,10 @@ class DateTimeRangePickerViewModel(private val timeFormatter: TimeFormatter) {
             val endInMillis = arguments.getLong(KEY_END_TIME_IN_MILLIS)
             endDateTime.onNext(DateTime(endInMillis, DateTimeZone.forTimeZone(timeZone)))
         }
+        if (arguments.containsKey(KEY_DATE_TIME_MODEL)) {
+            dateTimeModel = arguments.getBoolean(KEY_DATE_TIME_MODEL)
+        }
+
     }
 
     companion object {
@@ -178,5 +183,6 @@ class DateTimeRangePickerViewModel(private val timeFormatter: TimeFormatter) {
         val KEY_MIN_DATE_MSG = "minDateMsg"
         val KEY_MAX_DATE_IN_MILLIS = "maxDate"
         val KEY_VIEW_STACK_FROM_BOTTOM = "viewStackFromBottom"
+        val KEY_DATE_TIME_MODEL = "dateTimeModel"
     }
 }
